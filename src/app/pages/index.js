@@ -10,46 +10,46 @@ const Home = () => {
   const [jobs, setJobs] = useState([]);
 
   useEffect(() => {
-    axios
-      .get("https://entryleveljobs.me/api/jobs", {
-        params: {
-          page: 1,
-          size: 10,
-        },
-      })
-      .then((response) => setJobs(response.data.data)) // Extract the 'data' property
-      .catch((error) =>
-        console.error("Error fetching all job details:", error)
-      );
-
-    axios
-      .get("https://entryleveljobs.me/api/jobs/type")
-      .then((response) => setJobTypes(response.data.data))
-      .catch((error) => console.error("Error fetching job types:", error));
-
-    axios
-      .get("https://entryleveljobs.me/api/jobs/category")
-      .then((response) => setJobCategories(response.data.data))
-      .catch((error) => console.error("Error fetching job categories:", error));
-  }, []);
-
-  const handleFilterChange = (selectedType, selectedCategory) => {
-    axios
-      .get("https://entryleveljobs.me/api/jobs", {
-        params: {
-          page: 1,
-          size: 10,
-          type: selectedType,
-          category: selectedCategory,
-        },
-      })
-      .then((response) => setJobs(response.data.data))
-      .catch((error) => console.error("Error applying filter:", error));
-  };
+        axios
+          .get("https://entryleveljobs.me/api/jobs", {
+            params: {
+              page: 1,
+              size: 10,
+            },
+          })
+          .then((response) => setJobs(response.data.data)) // Extract the 'data' property
+          .catch((error) =>
+            console.error("Error fetching all job details:", error)
+          );
+    
+        axios
+          .get("https://entryleveljobs.me/api/jobs/type")
+          .then((response) => setJobTypes(response.data.data))
+          .catch((error) => console.error("Error fetching job types:", error));
+    
+        axios
+          .get("https://entryleveljobs.me/api/jobs/category")
+          .then((response) => setJobCategories(response.data.data))
+          .catch((error) => console.error("Error fetching job categories:", error));
+      }, []);
+    
+      const handleFilterChange = (selectedType, selectedCategory) => {
+        axios
+          .get("https://entryleveljobs.me/api/jobs", {
+            params: {
+              page: 1,
+              size: 10,
+              type: selectedType,
+              category: selectedCategory,
+            },
+          })
+          .then((response) => setJobs(response.data.data))
+          .catch((error) => console.error("Error applying filter:", error));
+      };
 
   return (
-    <div className="flex">
-      <div className="w-1/4 p-4">
+    <div className="flex flex-col sm:flex-row">
+      <div className="p-4 sm:w-1/4">
         <Filter
           jobTypes={jobTypes}
           jobCategories={jobCategories}
@@ -57,7 +57,7 @@ const Home = () => {
         />
       </div>
 
-      <div className="w-3/4 p-4">
+      <div className="p-4 sm:w-3/4">
         <JobList jobs={jobs} />
       </div>
     </div>
@@ -65,4 +65,3 @@ const Home = () => {
 };
 
 export default Home;
-
